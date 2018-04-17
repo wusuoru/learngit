@@ -40,7 +40,7 @@ git config --global core.autocrlf false
 
 我的建议是在无论在什么系统下编程，都把所有人的编辑器的换行符模式设置成Unix格式，然后把autocrlf设置成false，这样一劳永逸。
 毕竟除了Windows记事本这类软件外，已经很少有文本编辑器不支持换行符设置了。
--- by ZRONG - https://blog.zengrong.net/post/1722.html
+-- by zengrong - https://blog.zengrong.net/post/1722.html
 
 但是，Visual Studio 默认的的行尾符是 CRLF ， 只有保存文件时才能更改，
 所以这里将所有编辑器的换行符模式都设置成 Windows 格式 CRLF ，
@@ -55,4 +55,9 @@ git config --global core.safecrlf false
 git config --global core.safecrlf warn
 
 该项默认未设置，我将期设置为 git config --global core.safecrlf true ， 拒绝提交包含混合换行符的文件
+
+11. 中文文件名和路径乱码
+要解决这个问题，只需要告诉 git 不对 0x80 以上的字符进行转义即可：
+git config --global core.quotepath false
+-- by zengrong
 
