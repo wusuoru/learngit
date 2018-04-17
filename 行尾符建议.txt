@@ -1,0 +1,118 @@
+Git处理换行符问题 https://blog.csdn.net/github_30605157/article/details/56680990
+原创 2017年02月23日 21:15:01 标签：github /git 2510
+在你通过github或者其他远程托管服务器来和其他人进行协同开发代码的时候，确保换行符被正确处理是一项很重要的事。首先，你需要知道不同的操作系统对换行符的定义会有所不同，Unix或类Unix操作系统的换行符叫做LF，而windows系统的叫做CRLF，二者具有很大的区别：
+
+Unix系统里，每行结尾只有“<换行>”，即”n”；Windows系统里面，每行结尾是“<换行><回车>”
+Note:引自回车(CR)与换行(LF)， ‘r’和’n’的区别.
+
+这就是造成问题的根源——即如果你使用的是windows系统，而你的小伙伴用的是Mac的话，当你们使用git协同开发软件时，就会出现换行符不统一的问题。
+
+git其实可以自己处理换行符不统一的问题，但是可能会产生意想不到的结果。因此，有必要进行相关的配置，我们通常有两种方案：
+
+全局配置换行符
+针对某个仓库的局部配置
+换行符的全局配置
+
+一般如果你不想麻烦的话，可以采用比较简单的方法，如下所示:
+
+$ git config --global core.autocrlf true
+1
+其实，在你安装windows版本的git或者torgoiseGit时，你可能已经进行过这样的配置，也许你当时并未知道那个选项是什么意思。下面这张图是不是有些眼熟呢？
+
+config-newline
+
+Note:本图片来自百度经验:http://jingyan.baidu.com/article/9f7e7ec0b17cac6f2815548d.html。
+
+不过，也许很多人安装git的时候，是一直next…next吧！其实上面写得很清楚：
+
+Checkout Windows-style, commit Unix-style line endings
+当检出文本文件时，Git会将LF转换为CRLF。当提交文本文件时，CRLF将会被转换为LF。对于跨平台的项目，这是对Windows系统的推荐设置。(“core.autocrlf” is set to “true”)
+
+Checkout as-is, commit Unix-style line endings
+当检出文本文件时，Git不会做任何转换。当提交文本文件时，CRLF将会被转换为LF。对于跨平台的项目，这是对Unix系统的推荐设置。(“core.autocrlf” is set to “input”)
+
+Checkout as-is, commit as-is
+不论是检出还是提交文本文件时，Git都不会做任何转换。对于跨平台的项目，不推荐采用该选项。
+
+显然，第一个选项就是我们所介绍的第一种方法。
+
+顺便吐槽一下，我在网上看到很多介绍如何安装Git的博客，很少有详细说明每一个安装步骤的，有些甚至直接说
+
+一直next下去就安装完成了。
+一方面原因就是他们也不知道，其实这样可能会对新手产生误导，而且未免有些不负责任。
+
+单一仓库的换行符局部配置
+
+当然，有更好的方法解决换行符不统一的问题——使用.gitattributes文件统一换行符。这种方法是针对某个仓库进行换行符的统一配置，即时你已经进行了全局配置。
+
+另外，这个文件有点儿类似于.gitignore，不仅名字很类似，使用方式，编写语法也很像。这个文件必须位于仓库的根目录，可以像其他文件一样进行修改、提交。下面介绍如何编写这个文件：
+
+文件内容看起来像一张表格，总共分为两列：左边一列是git要匹配的文件名；右边是git需要采用的换行符格式。下面我们来看一个栗子：
+
+1    # Set the default behavior, in case people don't have core.autocrlf set.
+2    * text=auto
+3    
+4    # Explicitly declare text files you want to always be normalized and converted
+5    # to native line endings on checkout.
+6    *.c text
+7    *.h text
+8    
+9    # Declare files that will always have CRLF line endings on checkout.
+10   *.sln text eol=crlf
+11   
+12   # Denote all files that are truly binary and should not be modified.
+13   *.png binary
+14   *.jpg binary
+
+如果你熟悉.gitignore的话，你会觉得上面这个文件的左边一列很熟悉，这里我们就不再赘述了，不熟悉的话，请自行查阅相关资料。唯一的不同就是.gitattributes文件多了右边一列，如text, text eol=crlf, binary，刚刚我们也说过这一列是用来设置左边对应文件使用的换行符格式的，左右两列用空格隔开。下面我们来详细介绍下右边一列的语法：
+
+text=auto 
+让git自行处理左边匹配的文件使用何种换行符格式，这是默认选项。
+
+text eol=crlf 
+对左边匹配的文件统一使用CRLF换行符格式，如果有文件中出现LF将会转换成CRLF。
+
+text eol=lf 
+对左边匹配的文件统一使用LF换行符格式，如果有文件中出现CRLF将会转换成LF。
+
+binary 
+告诉git这不是文本文件，不应该对其中的换行符进行改变。另外，binary和符号-text -diff是等价的。
+
+上面这些语法应该已经足够了，如果有兴趣的，可以自行查阅相关资料，比如官方的资料：https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes。
+
+如果创建仓库之前没有进行换行符配置怎么办
+
+也许你在看完我的博客之后，才意识到自己并未进行相关的设置抑或是你想修改换行符配置，于是你兴致勃勃地按照我的博客进行了配置，结果你发现出了一堆莫名其妙的警告或者错误。
+
+怪我喽？
+
+guaiwolou
+
+不要着急吐槽，兵来将挡，水来土掩，没有解决不了的问题！
+
+首先保存Git中目前的所有文件，这样可以确保你的工作不会丢失。
+# 在仓库的根目录下运行命令
+$ git add . -u
+$ git commit -m "Saving files before refreshing line endings"
+1
+2
+3
+然后删除暂存区中的所有文件，
+$ git rm --cached -r .
+1
+重写暂存区以重新应用新的换行符
+$ git reset --hard
+1
+找回所有修改过的文件并加入暂存区，同时，你也可以查看些文件没有被修改。
+$ git add .
+# 出现"warning: CRLF will be replaced by LF in file."的警告是很正常的现象
+1
+2
+提交你对仓库的修改
+$ git commit -m "Normalize all the line endings"
+1
+参考资料
+
+Github help文档:Dealing with line endings
+
+Stackoverflow.com:Trying to fix line-endings with git filter-branch, but having no luck
