@@ -26,3 +26,5 @@ git reset --hard commit_id
 8. 显示操作记录命令 - 用于回退版本或其他操作
 git reflog
 
+9. 显示提交记录
+git log [filename] 方括号内为可选参数，输入时不要带方括号
