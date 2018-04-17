@@ -127,6 +127,13 @@ git push -u origin master
 从 orgin 的 master 到 本地 master
 git pull origin master:master
 
+补充：
+由于远程仓库第一次提交了 license 文件，
+但本地仓库提交历史与远程仓库不一致，
+以后为了避免该问题，建立远程仓库后，先 clone 或 fetch的方式 转一份到本地仓库
+此次解决方式： 
+git pull --allow-unrelated-histories
+
 19. 提示 There is no tracking information for the current branch.
  git branch --set-upstream-to=origin/<branch> master
  第一次提交尝试 git branch --set-upstream-to=origin/master master
