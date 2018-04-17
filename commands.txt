@@ -106,8 +106,20 @@ git rm 文件名
 15. 创建 ssh key
 ssh-keygen -t rsa -C "youremail@example.com"
 
+补充： 
+直接关联github远程库可能会遇到问题，所以可能需要输入下面的命令
+ssh git@github.com
+
+引用： 
+	The authenticity of host 'github.com (192.30.252.131)' can't be established.
+	RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
+	Are you sure you want to continue connecting (yes/no)? yes    #这里写 yes
+	Warning: Permanently added 'github.com,192.30.252.131' (RSA) to the list of known hosts.
+	Permission denied (publickey).
+
 16. 关联至远程库
 git remote add origin git@github.com:yourUserName/YourRepositoryName.git
 
 17. 推送至远程库
 git push -u origin master
+
