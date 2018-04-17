@@ -1,0 +1,11 @@
+1. 删除本地仓库： 
+rm -rf .git
+
+2. 初始化本地仓库：
+git init
+
+3. 添加文件：
+git add filename.extension
+
+4. 提交文件：
+git commit -m "description for current commit"
