@@ -28,3 +28,31 @@ git reflog
 
 9. 显示提交记录
 git log [filename] 方括号内为可选参数，输入时不要带方括号
+
+10. 换行符
+# 签出时将换行符转换成CRLF，签入时转换回 LF。
+git config --global core.autocrlf true
+#签出时不转换换行符，签入时转换回 LF
+git config --global core.autocrlf input
+#签出签入均不转换
+git config --global core.autocrlf false
+这些选项在TorgoiseGit中也可以设置。
+
+我的建议是在无论在什么系统下编程，都把所有人的编辑器的换行符模式设置成Unix格式，然后把autocrlf设置成false，这样一劳永逸。
+毕竟除了Windows记事本这类软件外，已经很少有文本编辑器不支持换行符设置了。
+-- by ZRONG - https://blog.zengrong.net/post/1722.html
+
+但是，Visual Studio 默认的的行尾符是 CRLF ， 只有保存文件时才能更改，
+所以这里将所有编辑器的换行符模式都设置成 Windows 格式 CRLF ，
+并且使用默认的 git config --global core.autocrlf true
+-- by me
+
+# 拒绝提交包含混合换行符的文件
+git config --global core.safecrlf true
+# 允许提交包含混合换行符的文件
+git config --global core.safecrlf false
+# 提交包含混合换行符的文件时候给出警示
+git config --global core.safecrlf warn
+
+该项默认未设置，我将期设置为 git config --global core.safecrlf true ， 拒绝提交包含混合换行符的文件
+
