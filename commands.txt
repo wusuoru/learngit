@@ -125,4 +125,4 @@ git push -u origin master
 
 18. 提示 There is no tracking information for the current branch.
  git branch --set-upstream-to=origin/<branch> master
- 第一次提交尝试 git branch --set-upstream-to=origin master
+ 第一次提交尝试 git branch --set-upstream-to=origin/master master
