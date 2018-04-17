@@ -9,3 +9,10 @@ git add filename.extension
 
 4. 提交文件：
 git commit -m "description for current commit"
+
+5. 显示状态
+git status
+
+6. 查看不同
+git diff filename.extension
+
