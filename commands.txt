@@ -123,3 +123,6 @@ git remote add origin git@github.com:yourUserName/YourRepositoryName.git
 17. 推送至远程库
 git push -u origin master
 
+18. 提示 There is no tracking information for the current branch.
+ git branch --set-upstream-to=origin/<branch> master
+ 第一次提交尝试 git branch --set-upstream-to=origin master
