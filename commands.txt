@@ -16,3 +16,13 @@ git status
 6. 查看不同
 git diff filename.extension
 
+7. 回退版本
+回退至上一版本:
+git reset --hard HEAD^
+
+回退至指定版本:
+git reset --hard commit_id
+
+8. 显示执行命令记录 - 用于回退版本或其他操作
+git reflog
+
