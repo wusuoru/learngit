@@ -23,6 +23,9 @@ git reset --hard HEAD^
 回退至指定版本:
 git reset --hard commit_id
 
+清除暂存区文件：
+git reset HEAD 文件名
+
 8. 显示操作记录命令 - 用于回退版本或其他操作
 git reflog
 
