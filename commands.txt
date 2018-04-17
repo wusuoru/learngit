@@ -106,6 +106,8 @@ git rm 文件名
 15. 创建 ssh key
 ssh-keygen -t rsa -C "youremail@example.com"
 
-16. 推送至远程库
+16. 关联至远程库
 git remote add origin git@github.com:yourUserName/YourRepositoryName.git
 
+17. 推送至远程库
+git push -u origin master
