@@ -82,3 +82,7 @@ git config core.filemode false
 
 这个选择的在TortoiseGit中没有界面来设置，只能用命令行或者手动修改git配置文件。
 -- by zengrong
+
+13. 丢弃工作区修改
+git checklout -- 文件名
+可以配合 'git reset HEAD 文件名' 来清除暂存区后，再丢弃工作区修改的内容
