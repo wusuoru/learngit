@@ -6,3 +6,4 @@ Git has a mustable index called stage.
 git diff 文件名 只和 暂存区进行比较
 git diff HEAD 文件名 和 master 进行比较
 git diff HEAD~2 和上上个版本进行比较
+Git tracks changes.
