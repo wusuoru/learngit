@@ -61,3 +61,21 @@ git config --global core.safecrlf warn
 git config --global core.quotepath false
 -- by zengrong
 
+12. 文件权限问题 755 and 664
+
+我在Cygwin下以命令行的形式使用Git，同时也使用TortoiseGit。
+在使用TortoiseGit签出使用cygwin提交的项目时，发现所有的文件权限都改变了：
+
+$ git diff
+diff --git a/launch4j/spritesheet_conterver.xml b/launch4j/spritesheet_conterver.xml
+old mode 100755
+new mode 100644
+这是因为msysgit是一个类Unix模拟器，需要拥有Unix形式的文件访问权限。而由于Windows的种种限制，信息不能复原，从而导致原来的755成644了。
+
+解决方法：
+
+git config --global core.filemode false
+git config core.filemode false
+
+这个选择的在TortoiseGit中没有界面来设置，只能用命令行或者手动修改git配置文件。
+-- by zengrong
