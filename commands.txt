@@ -143,4 +143,9 @@ git pull --allow-unrelated-histories
  git branch --set-upstream-to=origin/<branch> master
  第一次提交尝试 git branch --set-upstream-to=origin/master master
 
- 
+20. 查看远程分支
+# 查看全部远程分支
+git branch -a
+
+21. 查看远程仓库地址
+git remote -v
