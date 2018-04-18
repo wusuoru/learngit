@@ -149,3 +149,6 @@ git branch -a
 
 21. 查看远程仓库地址
 git remote -v
+
+22. Git 分支 - 远程分支
+# 参考 https://git-scm.com/book/zh/v1/Git-分支-远程分支
